@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 // database connection
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/ang-crud');
-require('./models/Data');
+require('./models/Article');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
