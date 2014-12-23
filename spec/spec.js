@@ -11,6 +11,7 @@ describe('app home', function () {
     submit = element(by.css('input[type="submit"'));
     submit.click();
     urls = element.all(by.repeater('a in articles'));
-    expect(urls.count()).toBe(1);
+    expect(urls.getText()).toContain('http://test.com');
   });
+
 });
