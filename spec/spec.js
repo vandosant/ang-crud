@@ -5,13 +5,17 @@ describe('app home', function () {
     expect(result.getText()).toEqual('hello');
   });
 
-  it('should allow users to add an article', function () {
+  it('should allow users to add an article and view its show page', function () {
     browser.get('http://localhost:3000/');
     element(by.model('article.url')).sendKeys('http://test.com');
     submit = element(by.css('input[type="submit"'));
     submit.click();
-    urls = element.all(by.repeater('a in articles'));
-    expect(urls.getText()).toContain('http://test.com');
+
+    element.all(by.css("a")).last().then(function(last) {
+      last.click().then(function () {
+        expect(browser.getCurrentUrl()).toContain('http://localhost:3000/#/articles');
+      });
+    });
   });
 
 });

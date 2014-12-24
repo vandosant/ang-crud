@@ -24,9 +24,28 @@ router.post('/articles', function (req, res) {
     if (err) {
       return next(err);
     }
-
     res.json(article)
   });
+});
+
+router.param('article', function (req, res, next, id) {
+  var query = Article.findById(id);
+
+  query.exec(function (err, article) {
+    if (err) {
+      return next(err);
+    }
+    if (!article) {
+      return next(new Error('article not found'));
+    }
+
+    req.article = article;
+    return next();
+  });
+});
+
+router.get('/articles/:article', function (req, res) {
+  res.json(req.article);
 });
 
 module.exports = router;
