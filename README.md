@@ -1,4 +1,9 @@
 ang-crud
 ========
 
-Simple angularjs crud app
+Simple angularjs crud app built on node with express and mongo
+1. npm install
+2. start mongodb: mongod --dbpath (your/data/db/path)
+2. start server (http://localhost:3000): npm start
+3. start webdriver: ./node_modules/protractor/bin/webdriver-manager start
+4. run the specs: ./node_modules/protractor/bin/protractor spec/conf.js
