@@ -11,11 +11,17 @@ var app = angular.module('angularCrud', ['ui.router'])
     }
 
   }])
-  .controller("ArticleController", ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
+  .controller("ArticleController", ['$scope', '$http', '$stateParams', '$state', function ($scope, $http, $stateParams, $state) {
     $http.get('/articles/' + $stateParams.id).success(function (data) {
       $scope.article = angular.copy(data);
     });
-}]);
+
+    $scope.update = function (article) {
+      $http.put('/articles/' + $stateParams.id, article).success(function () {
+        $state.go('articles', {id: $stateParams.id})
+      })
+    };
+  }]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("home");
@@ -30,5 +36,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       url: '/articles/{id}',
       templateUrl: '/articles.html',
       controller: 'FormController'
-    });
+    })
+    .state('editArticle', {
+      url: '/articles/{id}/edit',
+      templateUrl: '/edit.html',
+      controller: 'ArticleController'
+    })
 }]);

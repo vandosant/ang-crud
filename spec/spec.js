@@ -18,4 +18,25 @@ describe('app home', function () {
     });
   });
 
+  it('should allow users to update an article', function () {
+    browser.get('http://localhost:3000/');
+    element(by.model('article.url')).sendKeys('http://test.com');
+    submit = element(by.css('input[type="submit"'));
+    submit.click();
+
+    element.all(by.css("a")).last().then(function(last) {
+      last.click().then(function () {
+        expect(browser.getCurrentUrl()).toContain('http://localhost:3000/#/articles');
+      });
+    });
+
+    element(by.linkText('edit')).click();
+    element(by.model('article.url')).sendKeys('http://updated.com');
+    submit = element(by.css('input[type="submit"'));
+    submit.click();
+
+    expect(browser.getCurrentUrl()).not.toContain('edit');
+    expect(element.all(by.cssContainingText('div', 'http://updated.com')).count()).toEqual(1);
+  })
+
 });

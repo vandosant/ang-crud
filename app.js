@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 // database connection
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/ang-crud');
+mongoose.connect('mongodb://localhost:27017/ang-crud');
 require('./models/Article');
 
 var routes = require('./routes/index');

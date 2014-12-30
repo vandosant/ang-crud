@@ -8,7 +8,6 @@ router.get('/', function (req, res) {
   res.render('index', {title: 'Express'});
 });
 
-
 router.get('/articles', function (reg, res) {
   Article.find(function (err, articles) {
     if (err) {
@@ -45,6 +44,11 @@ router.param('article', function (req, res, next, id) {
 });
 
 router.get('/articles/:article', function (req, res) {
+  res.json(req.article);
+});
+
+router.put('/articles/:article', function (req, res) {
+  req.article.update(req.body);
   res.json(req.article);
 });
 
