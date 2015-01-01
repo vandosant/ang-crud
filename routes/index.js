@@ -52,4 +52,9 @@ router.put('/articles/:article', function (req, res) {
   res.json(req.article);
 });
 
+router.delete('/articles/:article', function (req, res) {
+  req.article.destroy();
+  res.json(req.article);
+});
+
 module.exports = router;

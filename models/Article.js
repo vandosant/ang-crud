@@ -9,4 +9,8 @@ ArticleSchema.method('update', function (params) {
   this.save();
 });
 
+ArticleSchema.method('destroy', function () {
+  this.remove();
+});
+
 mongoose.model('Article', ArticleSchema);

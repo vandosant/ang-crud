@@ -11,7 +11,7 @@ describe('app home', function () {
     submit = element(by.css('input[type="submit"'));
     submit.click();
 
-    element.all(by.css("a")).last().then(function(last) {
+    element.all(by.css("a")).last().then(function (last) {
       last.click().then(function () {
         expect(browser.getCurrentUrl()).toContain('http://localhost:3000/#/articles');
       });
@@ -24,7 +24,7 @@ describe('app home', function () {
     submit = element(by.css('input[type="submit"'));
     submit.click();
 
-    element.all(by.css("a")).last().then(function(last) {
+    element.all(by.css("a")).last().then(function (last) {
       last.click().then(function () {
         expect(browser.getCurrentUrl()).toContain('http://localhost:3000/#/articles');
       });
@@ -37,6 +37,24 @@ describe('app home', function () {
 
     expect(browser.getCurrentUrl()).not.toContain('edit');
     expect(element.all(by.cssContainingText('div', 'http://updated.com')).count()).toEqual(1);
-  })
+  });
 
+  it('should allow users to delete an article', function () {
+    browser.get('http://localhost:3000/');
+    var randomNum = Math.random() * (100);
+    element(by.model('article.url')).sendKeys('http://test.com' + randomNum);
+    submit = element(by.css('input[type="submit"'));
+    submit.click();
+
+    element.all(by.css("a")).last().then(function (last) {
+      last.click().then(function () {
+        expect(browser.getCurrentUrl()).toContain('http://localhost:3000/#/articles');
+      });
+    });
+
+    element(by.linkText('delete')).click().then(function () {
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:3000/#/home');
+      expect(element.all(by.cssContainingText('div', 'http://test.com' + randomNum)).count()).toEqual(0);
+    });
+  })
 });

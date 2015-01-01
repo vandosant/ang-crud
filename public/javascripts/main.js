@@ -21,6 +21,12 @@ var app = angular.module('angularCrud', ['ui.router'])
         $state.go('articles', {id: $stateParams.id})
       })
     };
+
+    $scope.destroy = function (article) {
+      $http.delete('/articles/' + $stateParams.id, article).success(function () {
+        $state.go('home');
+      })
+    }
   }]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
@@ -40,6 +46,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     .state('editArticle', {
       url: '/articles/{id}/edit',
       templateUrl: '/edit.html',
+      controller: 'ArticleController'
+    })
+    .state('deleteArticle', {
+      url: '/articles/{id}/delete',
+      templateUrl: '/delete.html',
       controller: 'ArticleController'
     })
 }]);
