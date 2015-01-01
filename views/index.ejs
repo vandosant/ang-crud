@@ -8,11 +8,23 @@
 <h1 class="hello">hello</h1>
 <ui-view></ui-view>
 
+<style type="text/css">
+  input.ng-invalid {
+    background-color: #FA787E;
+  }
+
+  input.ng-valid {
+    background-color: #78FA89;
+  }
+</style>
+
 <script type="text/ng-template" id="/home.html">
   <div ng-controller="FormController">
-    <form novalidate>
-      Article: <input type="text" ng-model="article.url">
+    <form name="articleForm" novalidate>
+      Article URL: <input type="url" name="url" ng-model="article.url">
       <input type="submit" ng-click="update(article)">
+      <span class="error" ng-show="articleForm.url.$error.url">
+    Error: Not a valid url!</span>
     </form>
     <div ng-repeat="a in articles">
       <a href="#/articles/{{a._id}}">{{a.url}}</a>
