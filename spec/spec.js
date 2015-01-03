@@ -1,3 +1,10 @@
+var mongoose = require("mongoose");
+
+beforeEach(function () {
+  mongoose.connection.close();
+  mongoose.connect('mongodb://localhost:27017/ang-crud-test');
+});
+
 describe('app home', function () {
   it('should work', function () {
     browser.get('http://localhost:3000/');
