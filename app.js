@@ -6,6 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 // database connection
 var mongoose = require('mongoose');
+
+mongoose.connection.on('open', function(){
+  mongoose.connection.db.dropDatabase(function(err){
+    console.log(err);
+  });
+});
+
 mongoose.connect('mongodb://localhost:27017/ang-crud');
 require('./models/Article');
 
