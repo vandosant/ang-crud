@@ -31,6 +31,7 @@ describe('app home', function () {
     });
 
     element(by.linkText('edit')).click();
+    element(by.model('article.url')).clear();
     element(by.model('article.url')).sendKeys('http://updated.com');
     submit = element(by.css('input[type="submit"'));
     submit.click();
