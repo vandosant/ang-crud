@@ -9,7 +9,6 @@ var mongoose = require('mongoose');
 
 mongoose.connection.on('open', function(){
   mongoose.connection.db.dropDatabase(function(err){
-    console.log(err);
   });
 });
 
