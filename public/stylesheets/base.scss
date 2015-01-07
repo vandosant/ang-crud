@@ -1,0 +1,20 @@
+body {
+  padding: 50px;
+  font: 22px "Comic Sans", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+h1 {
+  color: red;
+}
+
+input.ng-invalid {
+  background-color: #FA787E;
+}
+
+input.ng-valid {
+  background-color: #78FA89;
+}
