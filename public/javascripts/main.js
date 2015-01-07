@@ -27,6 +27,21 @@ var app = angular.module('angularCrud', ['ui.router'])
         $state.go('home');
       })
     }
+  }])
+  .controller("AutomobileController", ['$scope', '$http', function ($scope, $http) {
+    $scope.automobiles = [];
+
+    $http.get('/articles').success(function (data) {
+      $scope.automobiles = angular.copy(data);
+    });
+
+    $scope.create = function (automobile) {
+      console.log(automobile);
+      $http.post('/automobiles', automobile).success(function (data) {
+        $scope.automobiles.push(data);
+        console.log(data)
+      })
+    }
   }]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
@@ -52,5 +67,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       url: '/articles/{id}/delete',
       templateUrl: '/delete.html',
       controller: 'ArticleController'
+    })
+    .state('automobiles', {
+      url: '/automobiles',
+      templateUrl: '/automobiles.html',
+      controller: 'AutomobileController'
     })
 }]);

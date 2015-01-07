@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Article = mongoose.model('Article');
+var Automobile = mongoose.model('Automobile');
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -55,6 +56,17 @@ router.put('/articles/:article', function (req, res) {
 router.delete('/articles/:article', function (req, res) {
   req.article.destroy();
   res.json(req.article);
+});
+
+router.post('/automobiles', function (request, response) {
+  var automobile = new Automobile(request.body);
+  automobile.save(function (err, automobile) {
+    if (err) {
+      return next(err);
+    }
+    console.log(automobile);
+    response.json(automobile)
+  })
 });
 
 module.exports = router;

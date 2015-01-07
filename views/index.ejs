@@ -3,7 +3,7 @@
   <script src="javascripts/angular.js"></script>
   <script src="javascripts/angular-ui-router.js"></script>
   <script src="javascripts/main.js"></script>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/base.scss" media="screen" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/base.scss" media="screen"/>
 </head>
 <body ng-app="angularCrud">
 <h1>ang-crud</h1>
@@ -21,6 +21,7 @@
       <a href="#/articles/{{a._id}}">{{a.url}}</a>
     </div>
   </div>
+  <a href="#/automobiles">Automobiles</a>
 </script>
 
 <script type="text/ng-template" id="/articles.html">
@@ -44,6 +45,22 @@
 <script type="text/ng-template" id="/delete.html">
   <div ng-controller="ArticleController">
     {{article.url}}
+  </div>
+</script>
+
+<script type="text/ng-template" id="/automobiles.html">
+  <h2>Automobiles</h2>
+  <form novalidate>
+    Make: <input type="text" ng-model="automobile.make">
+    Model: <input type="text" ng-model="automobile.model">
+    Year: <input type="number" ng-model="automobile.year">
+    <input type="submit" ng-click="create(automobile)">
+  </form>
+  {{automobiles}}
+  <div ng-repeat="auto in automobiles" class="group">
+    <div class="child">{{auto.make}}</div>
+    <div class="child">{{auto.model}}</div>
+    <div class="child">{{auto.year}}</div>
   </div>
 </script>
 </body>

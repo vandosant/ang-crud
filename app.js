@@ -14,6 +14,7 @@ mongoose.connection.on('open', function () {
 
 mongoose.connect('mongodb://localhost:27017/ang-crud');
 require('./models/Article');
+require('./models/Automobile');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

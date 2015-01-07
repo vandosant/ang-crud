@@ -1,4 +1,4 @@
-describe('app home', function () {
+describe('article create, read, update, delete', function () {
   beforeEach(function() {
     browser.get('/');
   });
