@@ -3,11 +3,6 @@ describe('app home', function () {
     browser.get('/');
   });
 
-  it('should work', function () {
-    result = element(by.css('.hello'));
-    expect(result.getText()).toEqual('hello');
-  });
-
   it('should allow users to add an article and view its show page', function () {
     element(by.model('article.url')).sendKeys('http://test.com');
     submit = element(by.css('input[type="submit"'));
