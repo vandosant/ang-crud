@@ -7,19 +7,27 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+var app = express();
+
+var config = require('./config.json')[app.get('env')];
+console.log(app.get('env'));
+console.log(config);
+
 mongoose.connection.on('open', function () {
   mongoose.connection.db.dropDatabase(function (err) {
   });
 });
-
-mongoose.connect('mongodb://localhost:27017/ang-crud');
+var uriUtil = require('mongodb-uri');
+var mongodbUri = config["mongodbUri"];
+var mongooseUri = uriUtil.formatMongoose(mongodbUri);
+console.log(mongooseUri);
+mongoose.connect(mongooseUri);
 require('./models/Article');
 require('./models/Automobile');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express();
 
 
 // view engine setup
