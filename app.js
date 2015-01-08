@@ -9,26 +9,19 @@ var mongoose = require('mongoose');
 
 var app = express();
 
-var config = require('./config.json')[app.get('env')];
-console.log(app.get('env'));
-console.log(config);
-
 mongoose.connection.on('open', function () {
   mongoose.connection.db.dropDatabase(function (err) {
   });
 });
 var uriUtil = require('mongodb-uri');
-var mongodbUri = config["mongodbUri"];
+var mongodbUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/ang-crud';
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
-console.log(mongooseUri);
 mongoose.connect(mongooseUri);
 require('./models/Article');
 require('./models/Automobile');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -79,5 +72,4 @@ app.use(function (err, req, res, next) {
     error: {}
   });
 });
-
 module.exports = app;
