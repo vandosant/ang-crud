@@ -1,11 +1,6 @@
-describe('app home', function () {
+describe('article create, read, update, delete', function () {
   beforeEach(function() {
     browser.get('/');
-  });
-
-  it('should work', function () {
-    result = element(by.css('.hello'));
-    expect(result.getText()).toEqual('hello');
   });
 
   it('should allow users to add an article and view its show page', function () {
