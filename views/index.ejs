@@ -58,10 +58,16 @@
   </form>
   <div ng-repeat="auto in automobiles" class="group">
     <ul>
-      <li class="child">{{auto.make}}</li>
-      <li class="child">{{auto.model}}</li>
-      <li class="child">{{auto.year}}</li>
+      <li class="child"><a href="" ng-href="#/automobiles/{{auto._id}}">{{auto.make}} {{auto.model}}</a></li>
     </ul>
+  </div>
+</script>
+
+<script type="text/ng-template" id="/automobiles/show.html">
+  <div ng-controller="AutomobileController">
+    <li>{{automobile.make}}</li>
+    <li>{{automobile.model}}</li>
+    <li>{{automobile.year}}</li>
   </div>
 </script>
 </body>

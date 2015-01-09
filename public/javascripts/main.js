@@ -28,12 +28,19 @@ var app = angular.module('angularCrud', ['ui.router'])
       })
     }
   }])
-  .controller("AutomobileController", ['$scope', '$http', function ($scope, $http) {
+  .controller("AutomobileController", ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
     $scope.automobiles = [];
+    $scope.automobile = {};
 
     $http.get('/automobiles').success(function (data) {
       $scope.automobiles = angular.copy(data);
     });
+
+    if ($stateParams.id) {
+      $http.get('/automobiles/' + $stateParams.id).success(function (data) {
+        $scope.automobile = angular.copy(data);
+      })
+    }
 
     $scope.create = function (automobile) {
       $http.post('/automobiles', automobile).success(function (data) {
@@ -69,6 +76,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     .state('automobiles', {
       url: '/automobiles',
       templateUrl: '/automobiles.html',
+      controller: 'AutomobileController'
+    })
+    .state('showAutomobile', {
+      url: '/automobiles/{id}',
+      templateUrl: '/automobiles/show.html',
       controller: 'AutomobileController'
     })
 }]);

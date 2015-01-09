@@ -58,6 +58,22 @@ router.delete('/articles/:article', function (req, res) {
   res.json(req.article);
 });
 
+router.param('automobile', function(req, res, next, id) {
+  var query = Automobile.findById(id);
+
+  query.exec(function(err, automobile) {
+    if (err) {
+      return next(err);
+    }
+    if (!automobile) {
+      return next(new Error('automobile not found'));
+    }
+
+    req.automobile = automobile;
+    return next();
+  })
+});
+
 router.post('/automobiles', function (req, res) {
   var automobile = new Automobile(req.body);
   automobile.save(function (err, automobile) {
@@ -68,13 +84,18 @@ router.post('/automobiles', function (req, res) {
   })
 });
 
-router.get('/automobiles', function(req, res) {
-  Automobile.find(function(err, automobiles) {
+router.get('/automobiles', function (req, res) {
+  Automobile.find(function (err, automobiles) {
     if (err) {
       return next(err);
     }
     res.json(automobiles);
   })
+});
+
+router.get('/automobiles/:automobile', function (req, res) {
+  console.log(req.automobile);
+  res.json(req.automobile);
 });
 
 module.exports = router;
