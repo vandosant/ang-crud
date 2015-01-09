@@ -2,6 +2,7 @@ ang-crud
 ========
 
 Simple angularjs crud app built on node with express and mongo
+[sample app](https://stormy-peak-6594.herokuapp.com/)
 1. npm install
 2. start mongodb: mongod --dbpath (your/data/db/path)
 2. start server (http://localhost:3000): npm start
