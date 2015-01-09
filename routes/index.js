@@ -58,14 +58,22 @@ router.delete('/articles/:article', function (req, res) {
   res.json(req.article);
 });
 
-router.post('/automobiles', function (request, response) {
-  var automobile = new Automobile(request.body);
+router.post('/automobiles', function (req, res) {
+  var automobile = new Automobile(req.body);
   automobile.save(function (err, automobile) {
     if (err) {
       return next(err);
     }
-    console.log(automobile);
-    response.json(automobile)
+    res.json(automobile);
+  })
+});
+
+router.get('/automobiles', function(req, res) {
+  Automobile.find(function(err, automobiles) {
+    if (err) {
+      return next(err);
+    }
+    res.json(automobiles);
   })
 });
 

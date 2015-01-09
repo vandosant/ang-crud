@@ -31,15 +31,13 @@ var app = angular.module('angularCrud', ['ui.router'])
   .controller("AutomobileController", ['$scope', '$http', function ($scope, $http) {
     $scope.automobiles = [];
 
-    $http.get('/articles').success(function (data) {
+    $http.get('/automobiles').success(function (data) {
       $scope.automobiles = angular.copy(data);
     });
 
     $scope.create = function (automobile) {
-      console.log(automobile);
       $http.post('/automobiles', automobile).success(function (data) {
         $scope.automobiles.push(data);
-        console.log(data)
       })
     }
   }]);

@@ -3,7 +3,7 @@
   <script src="javascripts/angular.js"></script>
   <script src="javascripts/angular-ui-router.js"></script>
   <script src="javascripts/main.js"></script>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/base.scss" media="screen" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/base.scss" media="screen"/>
 </head>
 <body ng-app="angularCrud">
 <h1>ang-crud</h1>
@@ -56,11 +56,12 @@
     Year: <input type="number" ng-model="automobile.year">
     <input type="submit" ng-click="create(automobile)">
   </form>
-  {{automobiles}}
   <div ng-repeat="auto in automobiles" class="group">
-    <div class="child">{{auto.make}}</div>
-    <div class="child">{{auto.model}}</div>
-    <div class="child">{{auto.year}}</div>
+    <ul>
+      <li class="child">{{auto.make}}</li>
+      <li class="child">{{auto.model}}</li>
+      <li class="child">{{auto.year}}</li>
+    </ul>
   </div>
 </script>
 </body>
