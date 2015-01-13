@@ -68,6 +68,18 @@
     <li>{{automobile.make}}</li>
     <li>{{automobile.model}}</li>
     <li>{{automobile.year}}</li>
+    <a href="" ng-href="#/automobiles/{{automobile._id}}/edit">Edit</a>
+  </div>
+</script>
+
+<script type="text/ng-template" id="/automobiles/edit.html">
+  <div ng-controller="AutomobileController">
+    <form novalidate>
+      Make: <input type="text" ng-model="automobile.make">
+      Model: <input type="text" ng-model="automobile.model">
+      Year: <input type="number" ng-model="automobile.year">
+      <input type="submit" ng-click="update(automobile)">
+    </form>
   </div>
 </script>
 </body>

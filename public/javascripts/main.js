@@ -28,24 +28,32 @@ var app = angular.module('angularCrud', ['ui.router'])
       })
     }
   }])
-  .controller("AutomobileController", ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+  .controller("AutomobileController", ['$scope', '$http', '$stateParams', '$state', function ($scope, $http, $stateParams, $state) {
     $scope.automobiles = [];
     $scope.automobile = {};
-
-    $http.get('/automobiles').success(function (data) {
-      $scope.automobiles = angular.copy(data);
-    });
 
     if ($stateParams.id) {
       $http.get('/automobiles/' + $stateParams.id).success(function (data) {
         $scope.automobile = angular.copy(data);
       })
+    } else {
+      $http.get('/automobiles').success(function (data) {
+        $scope.automobiles = angular.copy(data);
+      });
     }
 
     $scope.create = function (automobile) {
       $http.post('/automobiles', automobile).success(function (data) {
         $scope.automobiles.push(data);
       })
+    };
+
+    $scope.update = function (automobile) {
+      $http.put('/automobiles/' + $stateParams.id, automobile).success(function () {
+        $state.go('showAutomobile', {id: $stateParams.id});
+      }).error(function () {
+        console.log('error')
+      });
     }
   }]);
 
@@ -81,6 +89,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     .state('showAutomobile', {
       url: '/automobiles/{id}',
       templateUrl: '/automobiles/show.html',
+      controller: 'AutomobileController'
+    })
+    .state('editAutomobile', {
+      url: '/automobiles/{id}/edit',
+      templateUrl: '/automobiles/edit.html',
       controller: 'AutomobileController'
     })
 }]);

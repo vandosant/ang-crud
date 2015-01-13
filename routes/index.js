@@ -94,7 +94,11 @@ router.get('/automobiles', function (req, res) {
 });
 
 router.get('/automobiles/:automobile', function (req, res) {
-  console.log(req.automobile);
+  res.json(req.automobile);
+});
+
+router.put('/automobiles/:automobile', function(req, res) {
+  req.automobile.update(req.body);
   res.json(req.automobile);
 });
 
