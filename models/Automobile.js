@@ -14,4 +14,8 @@ AutomobileSchema.method('update', function (params) {
   this.save()
 });
 
+AutomobileSchema.method('destroy', function(params) {
+  this.remove();
+});
+
 mongoose.model('Automobile', AutomobileSchema);

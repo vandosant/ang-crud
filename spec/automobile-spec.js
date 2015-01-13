@@ -33,4 +33,22 @@ ddescribe('automobile create, read, update, delete', function () {
     expect(children.getText()).toContain('Chevy');
     expect(children.getText()).not.toContain('Chevrolet');
   });
+
+  it('should allow users to delete an automobile', function() {
+    // create and view the automobile
+    element(by.linkText('Automobiles')).click();
+    element(by.model('automobile.make')).sendKeys('Dodge');
+    element(by.model('automobile.model')).sendKeys('Challenger');
+    element(by.model('automobile.year')).sendKeys('1971');
+    element(by.css("input[type='submit']")).click();
+    // delete the automobile
+    element(by.linkText('Dodge Challenger')).click();
+    element(by.linkText('Delete')).click();
+    browser.getCurrentUrl().then(function(url){
+      expect(url).toEqual('http://localhost:3000/#/automobiles')
+    });
+    var children = element.all(by.css('li'));
+    expect(children.getText()).not.toContain('Dodge');
+    expect(children.getText()).not.toContain('Challenger');
+  });
 });

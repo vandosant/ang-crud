@@ -102,4 +102,8 @@ router.put('/automobiles/:automobile', function(req, res) {
   res.json(req.automobile);
 });
 
+router.delete('/automobiles/:automobile', function(req, res) {
+  req.automobile.destroy();
+  res.json(req.automobile);
+});
 module.exports = router;
