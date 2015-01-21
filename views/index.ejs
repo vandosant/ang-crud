@@ -22,6 +22,7 @@
     </div>
   </div>
   <a href="#/automobiles">Automobiles</a>
+  <a href="#/colors">Colors</a>
 </script>
 
 <script type="text/ng-template" id="/articles.html">
@@ -75,6 +76,23 @@
       Year: <input type="number" ng-model="automobile.year">
       <input type="submit" ng-click="update(automobile)">
     </form>
+  </div>
+</script>
+
+<script type="text/ng-template" id="/colors.html">
+  <h2>Colors</h2>
+  <form novalidate>
+    Name: <input type="text" ng-model="color.name">
+    Saturation: <input type="number" ng-model="color.saturation">
+    Wavelength: <input type="number" ng-model="color.wavelength">
+    <input type="submit" ng-click="create(color)">
+  </form>
+  <div ng-repeat="color in colors">
+    <ul>
+      <li>
+        {{color.name}}
+      </li>
+    </ul>
   </div>
 </script>
 </body>

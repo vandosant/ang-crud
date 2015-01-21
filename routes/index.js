@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Article = mongoose.model('Article');
 var Automobile = mongoose.model('Automobile');
+var Color = mongoose.model('Color');
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -58,10 +59,10 @@ router.delete('/articles/:article', function (req, res) {
   res.json(req.article);
 });
 
-router.param('automobile', function(req, res, next, id) {
+router.param('automobile', function (req, res, next, id) {
   var query = Automobile.findById(id);
 
-  query.exec(function(err, automobile) {
+  query.exec(function (err, automobile) {
     if (err) {
       return next(err);
     }
@@ -97,13 +98,23 @@ router.get('/automobiles/:automobile', function (req, res) {
   res.json(req.automobile);
 });
 
-router.put('/automobiles/:automobile', function(req, res) {
+router.put('/automobiles/:automobile', function (req, res) {
   req.automobile.update(req.body);
   res.json(req.automobile);
 });
 
-router.delete('/automobiles/:automobile', function(req, res) {
+router.delete('/automobiles/:automobile', function (req, res) {
   req.automobile.destroy();
   res.json(req.automobile);
+});
+
+router.post('/colors', function (req, res) {
+  var color = new Color(req.body);
+  color.save(function (err, color){
+    if (err){
+      return next(err);
+    }
+    res.json(color);
+  })
 });
 module.exports = router;

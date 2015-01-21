@@ -19,6 +19,7 @@ var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 mongoose.connect(mongooseUri);
 require('./models/Article');
 require('./models/Automobile');
+require('./models/Color');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

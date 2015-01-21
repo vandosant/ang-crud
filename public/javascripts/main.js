@@ -61,6 +61,15 @@ var app = angular.module('angularCrud', ['ui.router'])
         $state.go('automobiles');
       })
     }
+  }])
+  .controller("ColorsController", ['$scope', '$http', function ($scope, $http) {
+    $scope.colors = [];
+
+    $scope.create = function(color){
+      $http.post('/colors', color).success(function(data){
+        $scope.colors.push(data)
+      })
+    }
   }]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
@@ -106,5 +115,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       url: '/automobiles/{id}/delete',
       templateUrl: '/automobiles/delete.html',
       controller: 'AutomobileController'
+    })
+    .state('colors', {
+      url: '/colors',
+      templateUrl: '/colors.html',
+      controller: 'ColorsController'
     })
 }]);
