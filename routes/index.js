@@ -108,13 +108,43 @@ router.delete('/automobiles/:automobile', function (req, res) {
   res.json(req.automobile);
 });
 
+router.get('/colors', function(req, res){
+  Color.find(function (err, colors) {
+    if (err){
+      return next(err);
+    }
+    res.json(colors);
+  })
+});
+
 router.post('/colors', function (req, res) {
   var color = new Color(req.body);
-  color.save(function (err, color){
-    if (err){
+  color.save(function (err, color) {
+    if (err) {
       return next(err);
     }
     res.json(color);
   })
 });
+
+router.param('color', function (req, res, next, id) {
+  query = Color.findById(id);
+
+  query.exec(function (err, color) {
+    if (err) {
+      return next(err);
+    }
+    if (!color) {
+      return next(new Error('color not found'));
+    }
+
+    req.color = color;
+    return next();
+  })
+});
+
+router.get('/colors/:color', function (req, res) {
+  res.json(req.color);
+});
+
 module.exports = router;

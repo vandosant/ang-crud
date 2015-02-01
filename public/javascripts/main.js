@@ -62,11 +62,22 @@ var app = angular.module('angularCrud', ['ui.router'])
       })
     }
   }])
-  .controller("ColorsController", ['$scope', '$http', function ($scope, $http) {
+  .controller("ColorController", ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
     $scope.colors = [];
+    $scope.color = {};
 
-    $scope.create = function(color){
-      $http.post('/colors', color).success(function(data){
+    if ($stateParams.id) {
+      $http.get('/colors/' + $stateParams.id).success(function (data) {
+        $scope.color = angular.copy(data);
+      })
+    } else {
+      $http.get('/colors').success(function (data) {
+        $scope.colors = angular.copy(data);
+      });
+    }
+
+    $scope.create = function (color) {
+      $http.post('/colors', color).success(function (data) {
         $scope.colors.push(data)
       })
     }
@@ -119,6 +130,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     .state('colors', {
       url: '/colors',
       templateUrl: '/colors.html',
-      controller: 'ColorsController'
+      controller: 'ColorController'
+    })
+    .state('showColor', {
+      url: '/colors/{id}',
+      templateUrl: '/colors/show.html',
+      controller: 'ColorController'
     })
 }]);
